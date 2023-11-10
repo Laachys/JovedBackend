@@ -184,7 +184,7 @@ public class Controller {
 	 
 	 
 	 @PostMapping("/changepassword")
-	 public ResponseEntity<Object> chagepassword( @RequestParam("newpass") String newpass, @RequestParam("oldpass") String oldpass, @RequestParam("id_user") String id_user) {
+	 public ResponseEntity<Object> changepassword( @RequestParam("newpass") String newpass, @RequestParam("oldpass") String oldpass, @RequestParam("id_user") String id_user) {
 		
 		 // Gson gson = new Gson();
 		 //ProductI product = gson.fromJson(form, ProductI.class);
@@ -193,7 +193,7 @@ public class Controller {
 	 }
 	 
 	 @PostMapping("/changeemail")
-	 public ResponseEntity<Object> chageemail( @RequestParam("passemail") String password, @RequestParam("email") String newemail, @RequestParam("id_user") String id_user) {
+	 public ResponseEntity<Object> changeemail( @RequestParam("passemail") String password, @RequestParam("email") String newemail, @RequestParam("id_user") String id_user) {
 		
 		 // Gson gson = new Gson();
 		 //ProductI product = gson.fromJson(form, ProductI.class);
@@ -212,5 +212,16 @@ public class Controller {
 		 return new ResponseEntity<Object>( service.desactivate(password, id_user), HttpStatus.OK);
 		 
 	 }
+	 
+	 
+	 @PostMapping("/changeactive")
+	 public ResponseEntity<Object> changeactive( @RequestBody Product product) {
+		
+	
+		 return new ResponseEntity<Object>( service.changeactive(product),  HttpStatus.OK);
+		 
+	 }
+	 
+
 }
 

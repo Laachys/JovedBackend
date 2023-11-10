@@ -19,6 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> , Cru
 	
 	 List<Product> findByCategoryAndActiveNot(Integer category, String activo);
 	 List<Product> findByActive(String activo);
+	 List<Product> findByUser(String user);
 	 
 	 List<Product> findByUserAndActiveNot(String id , String activo);
 }

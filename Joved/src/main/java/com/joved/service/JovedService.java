@@ -343,7 +343,7 @@ public class JovedService {
 	
 	public Map<String, String> findAllProductsByUser(String user){
 		System.out.println(user);
-		List<Product> products = productRepository.findByUserAndActiveNot(user , "0");
+		List<Product> products = productRepository.findByUser(user);
 		
 		List<ImageI> imageList = new ArrayList<>();
 		
@@ -383,8 +383,6 @@ public class JovedService {
 		Response response = new Response();
 		User p = userRepository.findById(Integer.parseInt(id_user)).get();
 		if(!Objects.isNull(p)) {
-			//String password = passwordEncoder.encode(login.getPassword());
-			//System.out.println(login.getPassword());
 			// Crear un encoder BCrypt lo que hace es desencriptar la contraseña
 	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	        
@@ -481,4 +479,42 @@ public class JovedService {
 		}
 		return response;
 	}
+	
+	
+	public Response changeactive(Product product) {
+		Response response = new Response();
+		Product productsave = productRepository.findById(product.getId()).get();
+		Boolean existe = false;
+			if(product.getActive().equals("0")) {
+				List<Sold> sold = soldRepository.findByProduct(product.getId().toString());
+				
+				for(Sold sol: sold) {
+					if(sol.getProduct().equals(product.getId().toString())) {
+						existe=true;;
+					}
+				}
+				if(existe) {
+					productsave.setActive("0");
+					response.setResponse("false");
+				}else {
+					productsave.setActive("1");
+					response.setResponse("true");
+				}
+				
+			}else if(product.getActive().equals("1")){
+				productsave.setActive("0");
+				response.setResponse("false");
+				
+			}
+			productRepository.save(productsave);
+		return response;
+	}
+	
+	public List<Sold> getsoldbyuser(Product product) {		
+		return soldRepository.findByProduct(product.getId().toString());
+	}
+	
+	/*public List<Favorite> allFavorites(String id_user) {
+		return favoriteRepository.findAllByUser(id_user);
+	}*/
 }

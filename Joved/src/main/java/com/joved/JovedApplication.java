@@ -12,17 +12,4 @@ public class JovedApplication {
 		
 	}
 
-	/*
-@Bean
-public CommandLineRunner demo(UserRepository repository) {
-	return (args) -> {
-		System.out.println("BUSCANDO:");
-		repository.findByUsername("paulitaloquita").forEach(user ->
-		{
-			System.out.println("HOLA");
-			System.out.println(user.toString());
-		});
-	
-	};
-}*/
 }
